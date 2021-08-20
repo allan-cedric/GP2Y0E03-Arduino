@@ -2,7 +2,7 @@
 // -- Plataforma: Arduino --
 // -- Autor: Allan Cedric --
 
-#include "GP2Y0E03.h"
+#include "GP2Y0E03-Arduino.h"
 
 GP2Y0E03::GP2Y0E03(uint8_t pin)
 {

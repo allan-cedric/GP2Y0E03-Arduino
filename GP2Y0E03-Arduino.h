@@ -2,8 +2,8 @@
 // -- Plataforma: Arduino --
 // -- Autor: Allan Cedric --
 
-#ifndef __GP2Y0E03_H__
-#define __GP2Y0E03_H__
+#ifndef __GP2Y0E03_ARDUINO_H__
+#define __GP2Y0E03_ARDUINO_H__
 
 // -- Bibliotecas --
 #include <Arduino.h>
