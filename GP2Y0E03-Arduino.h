@@ -13,8 +13,7 @@
 #define MAX_DIST 50.0 // Dist. máxima de detecção
 
 #define ANALOG_LEVEL 0.0048828125                                          // Unidade em V
-#define SENSOR_FUNCTION(v) (-0.23 * ((v + 1) * ANALOG_LEVEL * 100) + 56.9) // Veja a curva de reposta analógica do sensor no datasheet \
-                                                                            // O fator multiplicativo 100 deve-se ao fato que modelei a função em cV
+#define SENSOR_FUNCTION(v) (-0.23 * ((v + 1) * ANALOG_LEVEL * 100) + 56.9) // Veja a curva de reposta analógica do sensor no datasheet
 
 // -- Classe GP2Y0E03 --
 class GP2Y0E03
