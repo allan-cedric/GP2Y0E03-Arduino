@@ -33,7 +33,7 @@ uint8_t GP2Y0E03::getNumReading()
     return _numReading;
 }
 
-uint8_t GP2Y0E03::getMaxDist()
+double GP2Y0E03::getMaxDist()
 {
     return _maxDist;
 }
