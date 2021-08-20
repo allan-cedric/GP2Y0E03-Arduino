@@ -8,7 +8,7 @@
 ## How to use ?   
 * Include the library and call the constructor `GP2Y0E03`:
 ```C++
-#include "GP2Y0E03.h"
+#include "GP2Y0E03-Arduino.h"
  
 GP2Y0E03 _sensor(A0); //Ex.: Analog Pin A0 on Arduino
 
