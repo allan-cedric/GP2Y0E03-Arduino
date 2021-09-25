@@ -19,7 +19,8 @@ double GP2Y0E03::read()
     uint16_t value = 0;                                     // Valor analógico bruto
     for (uint8_t i = 0; i < GP2Y0E03::getNumReading(); i++) // Somatório dos valores analógicos
         value += analogRead(_pin);
-    return round(SENSOR_FUNCTION(value / GP2Y0E03::getNumReading())); // Retorna o valor em cm lido pelo sensor
+    value /= GP2Y0E03::getNumReading();
+    return round(SENSOR_FUNCTION(value)); // Retorna o valor em cm lido pelo sensor
 }
 
 uint8_t GP2Y0E03::detected()
