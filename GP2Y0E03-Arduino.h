@@ -14,7 +14,7 @@
 #define MAX_DIST 50.0  // Dist. máxima de detecção em cm
 
 #define ANALOG_LEVEL 0.0048828125                                          // Unidade em V
-#define SENSOR_FUNCTION(v) (-0.23 * ((v + 1) * ANALOG_LEVEL * 100) + 56.9) // Conversão da tensão resultante do sensor em cm
+#define SENSOR_FUNCTION(v) (-0.23 * ((v + 1) * ANALOG_LEVEL * 100) + 63.9) // Conversão da tensão resultante do sensor em cm
 
 // -- Classe GP2Y0E03 --
 class GP2Y0E03
