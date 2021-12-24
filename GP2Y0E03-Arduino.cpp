@@ -8,46 +8,49 @@ GP2Y0E03::GP2Y0E03(uint8_t pin)
 {
     _pin = pin;
     pinMode(_pin, INPUT); // Seta o pino do sensor como INPUT
-
-    _sumValues = 0;
-    _oldValueIndex = 0;
-    for (int i = 0; i < NUM_VALUES; i++)
-    {
-        _values[i] = MAX_DIST + 10;
-        _sumValues += _values[i];
-    }
-
+    _detected = 0;        // Inicializa atributo _detected
+    GP2Y0E03::setNumReading(NUM_READING);
     GP2Y0E03::setMaxDist(MAX_DIST);
     GP2Y0E03::setMinDist(MIN_DIST);
 }
 
-uint16_t GP2Y0E03::read()
+double GP2Y0E03::read()
 {
-    _sumValues -= _values[_oldValueIndex];
-    _values[_oldValueIndex] = round(SENSOR_FUNCTION(analogRead(_pin)));
-    _sumValues += _values[_oldValueIndex];
-
-    _oldValueIndex = (_oldValueIndex + 1) % NUM_VALUES;
-    return _sumValues / NUM_VALUES;
+    uint16_t value = 0;                                     // Valor analógico bruto
+    for (uint8_t i = 0; i < GP2Y0E03::getNumReading(); i++) // Somatório dos valores analógicos
+        value += analogRead(_pin);
+    value /= GP2Y0E03::getNumReading();
+    return round(SENSOR_FUNCTION(value)); // Retorna o valor em cm lido pelo sensor
 }
 
 uint8_t GP2Y0E03::detected()
 {
-    uint16_t value = GP2Y0E03::read();
-    return (value <= GP2Y0E03::getMaxDist() && value >= GP2Y0E03::getMinDist());
+    double read = GP2Y0E03::read();
+    _detected = (read <= GP2Y0E03::getMaxDist() && read >= GP2Y0E03::getMinDist());
+    return _detected;
 }
 
-uint8_t GP2Y0E03::getMaxDist()
+uint8_t GP2Y0E03::getNumReading()
+{
+    return _numReading;
+}
+
+double GP2Y0E03::getMaxDist()
 {
     return _maxDist;
 }
 
-uint8_t GP2Y0E03::getMinDist()
+double GP2Y0E03::getMinDist()
 {
     return _minDist;
 }
 
-void GP2Y0E03::setMaxDist(uint8_t maxDist)
+void GP2Y0E03::setNumReading(uint8_t numReading)
+{
+    _numReading = numReading;
+}
+
+void GP2Y0E03::setMaxDist(double maxDist)
 {
     if (maxDist >= MIN_DIST && maxDist <= MAX_DIST)
         _maxDist = maxDist;
@@ -55,7 +58,7 @@ void GP2Y0E03::setMaxDist(uint8_t maxDist)
         _maxDist = MAX_DIST;
 }
 
-void GP2Y0E03::setMinDist(uint8_t minDist)
+void GP2Y0E03::setMinDist(double minDist)
 {
     if (minDist >= MIN_DIST && minDist <= MAX_DIST)
         _minDist = minDist;

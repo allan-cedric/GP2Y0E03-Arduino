@@ -9,23 +9,22 @@
 #include <Arduino.h>
 
 // -- Macros --
-#define NUM_VALUES 5 // Número de valores padrão
-#define MIN_DIST 4   // Dist. mínima de detecção em cm
-#define MAX_DIST 50  // Dist. máxima de detecção em cm
+#define NUM_READING 10 // Número de leituras padrão
+#define MIN_DIST 4.0   // Dist. mínima de detecção em cm
+#define MAX_DIST 50.0  // Dist. máxima de detecção em cm
 
-#define ANALOG_LEVEL 0.0048828125                                            // Unidade em V
+#define ANALOG_LEVEL 0.0048828125                                          // Unidade em V
 #define SENSOR_FUNCTION(v) (-0.23 * (((v) + 1) * ANALOG_LEVEL * 100) + 63.9) // Conversão da tensão resultante do sensor em cm
 
 // -- Classe GP2Y0E03 --
 class GP2Y0E03
 {
 private:
-    uint8_t _pin;                 // Pino que o sensor está associado
-    uint16_t _values[NUM_VALUES]; // Valores lidos pelo sensor
-    uint16_t _oldValueIndex;      // Posição do valor mais antigo
-    uint16_t _sumValues;          // Somatório dos valores
-    uint8_t _maxDist;             // Dist. máxima para o sensor realizar a detecção
-    uint8_t _minDist;             // Dist. mínima para o sensor realizar a detecção
+    uint8_t _pin;        // Pino que o sensor está associado
+    uint8_t _detected;   // Estado de detecção do sensor
+    uint8_t _numReading; // Núm. de leituras que o sensor realiza em um intervalo de tempo
+    double _maxDist;     // Dist. máxima para o sensor realizar a detecção
+    double _minDist;     // Dist. mínima para o sensor realizar a detecção
 
 public:
     /*!
@@ -40,7 +39,7 @@ public:
 
         @return Distância em cm
     */
-    uint16_t read();
+    double read();
 
     /*!
         @brief  Verifica se o sensor detectou algo
@@ -50,32 +49,46 @@ public:
     uint8_t detected();
 
     /*!
+        @brief  Número de leituras para o método GP2Y0E03::read()
+
+        @return Número de leituras
+    */
+    uint8_t getNumReading();
+
+    /*!
         @brief  Distância máxima atual de detecção do sensor
 
         @return Distância máxima
     */
-    uint8_t getMaxDist();
+    double getMaxDist();
 
     /*!
         @brief  Distância mínima atual de detecção do sensor
 
         @return Distância mínima
     */
-    uint8_t getMinDist();
+    double getMinDist();
+
+    /*!
+        @brief  Seta o número de leituras do método GP2Y0E03::read()
+
+        @param  numReading  Número de leituras
+    */
+    void setNumReading(uint8_t numReading);
 
     /*!
         @brief  Seta a distância máxima de detecção do sensor
 
         @param  maxDist Distância máxima
     */
-    void setMaxDist(uint8_t maxDist);
+    void setMaxDist(double maxDist);
 
     /*!
         @brief  Seta a distância mínima de detecção do sensor
 
         @param  minDist Distância mínima
     */
-    void setMinDist(uint8_t minDist);
+    void setMinDist(double minDist);
 };
 
 #endif
