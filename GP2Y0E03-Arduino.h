@@ -10,10 +10,10 @@
 
 // -- Macros --
 #define NUM_READING 10 // Número de leituras padrão
-#define MIN_DIST 4.0   // Dist. mínima de detecção em cm
-#define MAX_DIST 50.0  // Dist. máxima de detecção em cm
+#define MIN_DIST 4     // Dist. mínima de detecção em cm
+#define MAX_DIST 50    // Dist. máxima de detecção em cm
 
-#define ANALOG_LEVEL 0.0048828125                                          // Unidade em V
+#define ANALOG_LEVEL 0.0048828125                                            // Unidade em V
 #define SENSOR_FUNCTION(v) (-0.23 * (((v) + 1) * ANALOG_LEVEL * 100) + 63.9) // Conversão da tensão resultante do sensor em cm
 
 // -- Classe GP2Y0E03 --
@@ -23,8 +23,8 @@ private:
     uint8_t _pin;        // Pino que o sensor está associado
     uint8_t _detected;   // Estado de detecção do sensor
     uint8_t _numReading; // Núm. de leituras que o sensor realiza em um intervalo de tempo
-    double _maxDist;     // Dist. máxima para o sensor realizar a detecção
-    double _minDist;     // Dist. mínima para o sensor realizar a detecção
+    uint16_t _maxDist;     // Dist. máxima para o sensor realizar a detecção
+    uint16_t _minDist;     // Dist. mínima para o sensor realizar a detecção
 
 public:
     /*!
@@ -39,7 +39,7 @@ public:
 
         @return Distância em cm
     */
-    double read();
+    uint16_t read();
 
     /*!
         @brief  Verifica se o sensor detectou algo
@@ -60,14 +60,14 @@ public:
 
         @return Distância máxima
     */
-    double getMaxDist();
+    uint16_t getMaxDist();
 
     /*!
         @brief  Distância mínima atual de detecção do sensor
 
         @return Distância mínima
     */
-    double getMinDist();
+    uint16_t getMinDist();
 
     /*!
         @brief  Seta o número de leituras do método GP2Y0E03::read()
@@ -81,14 +81,14 @@ public:
 
         @param  maxDist Distância máxima
     */
-    void setMaxDist(double maxDist);
+    void setMaxDist(uint16_t maxDist);
 
     /*!
         @brief  Seta a distância mínima de detecção do sensor
 
         @param  minDist Distância mínima
     */
-    void setMinDist(double minDist);
+    void setMinDist(uint16_t minDist);
 };
 
 #endif
