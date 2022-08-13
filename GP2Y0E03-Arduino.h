@@ -1,92 +1,92 @@
-// -- Classe que molda o comportamento do sensor GP2Y0E03 da Sharp --
-// -- Plataforma: Arduino --
-// -- Autor: Allan Cedric --
+// -- GP2Y0E03 Sensor Class --
+// -- Plataform: Arduino --
+// -- Author: Allan Cedric --
 
 #ifndef __GP2Y0E03_ARDUINO_H__
 #define __GP2Y0E03_ARDUINO_H__
 
-// -- Bibliotecas --
+// -- Libraries --
 #include <Arduino.h>
 
 // -- Macros --
-#define NUM_READING 10 // Número de leituras padrão
-#define MIN_DIST 4     // Dist. mínima de detecção em cm
-#define MAX_DIST 50    // Dist. máxima de detecção em cm
+#define NUM_READING 10 // Standard reading
+#define MIN_DIST 4     // Min. distance in cm
+#define MAX_DIST 50    // Max. distance in cm
 
-#define ANALOG_LEVEL 0.0048828125                                            // Unidade em V
-#define SENSOR_FUNCTION(v) (-0.23 * (((v) + 1) * ANALOG_LEVEL * 100) + 63.9) // Conversão da tensão resultante do sensor em cm
+#define ANALOG_LEVEL 0.0048828125                                            // in Volts
+#define SENSOR_FUNCTION(v) (-0.23 * (((v) + 1) * ANALOG_LEVEL * 100) + 63.9) // Volts to cm
 
-// -- Classe GP2Y0E03 --
+// -- GP2Y0E03 Class --
 class GP2Y0E03
 {
 private:
-    uint8_t _pin;        // Pino que o sensor está associado
-    uint8_t _detected;   // Estado de detecção do sensor
-    uint8_t _numReading; // Núm. de leituras que o sensor realiza em um intervalo de tempo
-    uint16_t _maxDist;     // Dist. máxima para o sensor realizar a detecção
-    uint16_t _minDist;     // Dist. mínima para o sensor realizar a detecção
+    uint8_t _pin;           // Sensor pin
+    uint8_t _detected;      // Sensor detection
+    uint8_t _numReading;    // Num. readings
+    uint16_t _maxDist;      // Max. distance to detect
+    uint16_t _minDist;      // Min. distance to detect
 
 public:
     /*!
-        @brief  Construtor
+        @brief  Constructor
 
-        @param  pin Pino do sensor 
+        @param  pin Sensor pin 
     */
     GP2Y0E03(uint8_t pin);
 
     /*!
-        @brief  Realiza a leitura do sensor
+        @brief  Read sensor
 
-        @return Distância em cm
+        @return Distance in cm
     */
     uint16_t read();
 
     /*!
-        @brief  Verifica se o sensor detectou algo
+        @brief  Check if the sensor detects something
 
-        @return 1 se detectou alguma coisa, senão 0
+        @return 1 if detected it, otherwise 0
     */
     uint8_t detected();
 
     /*!
-        @brief  Número de leituras para o método GP2Y0E03::read()
+        @brief  Num. readings of the sensor
 
-        @return Número de leituras
+        @return Num. readings
     */
     uint8_t getNumReading();
 
     /*!
-        @brief  Distância máxima atual de detecção do sensor
+        @brief  Max. distance of the sensor
 
-        @return Distância máxima
+        @return Distance in cm
     */
     uint16_t getMaxDist();
 
     /*!
-        @brief  Distância mínima atual de detecção do sensor
+        @brief  Min. distance of the sensor
 
-        @return Distância mínima
+        @return Distance in cm
     */
     uint16_t getMinDist();
 
     /*!
-        @brief  Seta o número de leituras do método GP2Y0E03::read()
+        @brief  Set a new value for _numReading
 
-        @param  numReading  Número de leituras
+        @param  numReading  Num. readings
     */
     void setNumReading(uint8_t numReading);
 
     /*!
-        @brief  Seta a distância máxima de detecção do sensor
+        @brief  Set a new max. distance for the sensor
 
-        @param  maxDist Distância máxima
+        @param  maxDist Desired distance
     */
     void setMaxDist(uint16_t maxDist);
 
     /*!
-        @brief  Seta a distância mínima de detecção do sensor
+        @brief  Set a new min. distance for the sensor
 
-        @param  minDist Distância mínima
+        @param  minDist Desired distance
     */
     void setMinDist(uint16_t minDist);
 };

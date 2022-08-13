@@ -1,14 +1,14 @@
-// -- Implementação da Classe GP2Y0E03 --
-// -- Plataforma: Arduino --
-// -- Autor: Allan Cedric --
+// -- Implementation of GP2Y0E03 Class --
+// -- Plataform: Arduino --
+// -- Author: Allan Cedric --
 
 #include "GP2Y0E03-Arduino.h"
 
 GP2Y0E03::GP2Y0E03(uint8_t pin)
 {
     _pin = pin;
-    pinMode(_pin, INPUT); // Seta o pino do sensor como INPUT
-    _detected = 0;        // Inicializa atributo _detected
+    pinMode(_pin, INPUT);
+    _detected = 0;
     GP2Y0E03::setNumReading(NUM_READING);
     GP2Y0E03::setMaxDist(MAX_DIST);
     GP2Y0E03::setMinDist(MIN_DIST);
@@ -16,11 +16,11 @@ GP2Y0E03::GP2Y0E03(uint8_t pin)
 
 uint16_t GP2Y0E03::read()
 {
-    uint16_t value = 0;                                     // Valor analógico bruto
-    for (uint8_t i = 0; i < GP2Y0E03::getNumReading(); i++) // Somatório dos valores analógicos
+    uint16_t value = 0;
+    for (uint8_t i = 0; i < GP2Y0E03::getNumReading(); i++)
         value += analogRead(_pin);
     value /= GP2Y0E03::getNumReading();
-    return round(SENSOR_FUNCTION(value)); // Retorna o valor em cm lido pelo sensor
+    return round(SENSOR_FUNCTION(value));
 }
 
 uint8_t GP2Y0E03::detected()
